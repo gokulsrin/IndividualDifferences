@@ -1,8 +1,9 @@
-<html>
+﻿<html>
 
 <head>
     <title>Modality Study</title>
     <script type="text/javascript" src="vignettes.js"></script>
+    <script type="text/javascript" src="bdi_options.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="jspsych-6.1.0/jspsych.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
@@ -13,7 +14,7 @@
     <script src="jspsych-6.1.0/plugins/jspsych-survey-html-form.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
     <script src="jspsych-6.1.0/plugins/jspsych-survey-multi-select.js"></script>
-    <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+    <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="vignettes.js"></script>
 </head>
@@ -31,7 +32,7 @@
     var shuffled_q = jsPsych.randomization.sampleWithoutReplacement([]);
     var psychopathy_options = ["True", "Somewhat True", "Somewhat Fale", "False"];
 	var empathy_options = ["1", "2", "3", "4", "5"];
-	var bai_options = ["Not at all", "Mildly, but it didn’t bother me much", "Moderately – it wasn’t pleasant at times", "Severely – it bothered me a lot"];
+    var bai_options = ["Not at all", "Mildly, but it didn’t bother me much", "Moderately – it wasn’t pleasant at times", "Severely – it bothered me a lot"];
 	var crt_options1 = jsPsych.randomization.sampleWithoutReplacement(["1 cent", "5 cents", "9 cents", "10 cents"]);
 	var crt_options2 = jsPsych.randomization.sampleWithoutReplacement(["5 minutes", "20 minutes", "100 minutes", "500 minutes"]);
 	var crt_options3 = jsPsych.randomization.sampleWithoutReplacement(["12 days", "24 days", "36 days", "47 days"]);
@@ -139,10 +140,10 @@
     timeline.push(vignette_instructions);
 
     //trial that shuffles through all modal options
-    //this one is for the 1150ms trials
+    //this one is for the 3000ms trials
     choices_slow = {
         type: 'html-keyboard-response',
-        trial_duration: 1150,
+        trial_duration: 3000,
         stimulus: function() {
             return shuffled_q[0];
         },
@@ -159,10 +160,10 @@
         }
     }
     
-    //this one is for the 750ms trials
+    //this one is for the 1500ms trials
     choices_fast = {
         type: 'html-keyboard-response',
-        trial_duration: 750,
+        trial_duration: 1500,
         stimulus: function() {
             return shuffled_q[0];
         },
@@ -200,7 +201,7 @@
     }
 
     //each individual stimulus for the possible things people can do
-    //this one uses 750ms trials
+    //this one uses 1500ms trials
     var modalq_fast = {
         timeline: [choices_fast, pause],
         loop_function: function(data) {
@@ -214,7 +215,7 @@
             }
         }
     }
-    //this one uses 1150ms trials
+    //this one uses 3000ms trials
     var modalq_slow = {
         timeline: [choices_slow, pause],
         loop_function: function(data) {
@@ -306,9 +307,151 @@
     }
     timeline.push(crt);
 
+    // as of rn we have removed question 9 (suicidal thoughts or wishes), so if we ever add it back change below to say '...Item 16 (Cha...or Item 9 (Cha...
+    // additionally i will create variables corresponding to this question but comment them out for the time being for orginizational purposes
+    var bdi = {
+        type: 'survey-multi-select',
+        preamble: "<br><br> This questionnaire consists of 20 groups of statements. Please read each group of statements carefully, and then pick out the <b> one statement </b> "
+            + "in each group that best describes the way you have been feeling during the <b> past two weeks, including today </b>. Select the box corresponding to the "
+            + "statement you have picked. If several satements in the group seem to apply equally well, select the highest number from that group. Be sure you do not choose "
+            + "more than one statement from any group, including Item 15 (Changes in sleeping pattern) or Item 17 (Changes in Appetite).",
+        questions: [{
+            prompt: "Sadness",
+            name: 'bdi_1',
+            options: bdi_options.Sadness,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Pessimism",
+            name: 'bdi_2',
+            options: bdi_options.Pessimism,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Past Failure",
+            name: 'bdi_3',
+            options: bdi_options.PastFailure,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Loss of Pleasure",
+            name: 'bdi_4',
+            options: bdi_options.LossofPleasure,
+            required: true,
+            horizontal: true
+        },{
+            prompt: "Guilty Feelings",
+            name: 'bdi_5',
+            options: bdi_options.GuiltyFeelings,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Punishment Feelings",
+            name: 'bdi_6',
+            options: bdi_options.PunishmentFeelings,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Self-Dislike",
+            name: 'bdi_7',
+            options: bdi_options.SelfDislike,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Self-Criticalness",
+            name: 'bdi_8',
+            options: bdi_options.SelfCriticalness,
+            required: true,
+            horizontal: true
+        },
+        //    {
+        //    prompt: "Suicidal Thoughts or Wishes",
+        //    name: 'bdi_9',
+        //    options: bdi_options.SuicidalThoughtsorWishes,
+        //    required: true,
+        //    horizontal: true
+        //},
+            {
+            prompt: "Crying",
+            name: 'bdi_10',
+            options: bdi_options.Crying,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Agitation",
+            name: 'bdi_11',
+            options: bdi_options.Agitation,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Loss of Interest",
+            name: 'bdi_12',
+            options: bdi_options.LossofInterest,
+            required: true,
+            horizontal: true
+        },{
+            prompt: "Indecisiveness",
+            name: 'bdi_13',
+            options: bdi_options.Indecisiveness,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Worthlessness",
+            name: 'bdi_14',
+            options: bdi_options.Worthlessness,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Loss of Energy",
+            name: 'bdi_15',
+            options: bdi_options.LossofEnergy,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Changes in Sleeping Pattern",
+            name: 'bdi_16',
+            options: bdi_options.ChangesinSleepingPattern,
+            required: true,
+            horizontal: true
+        },{
+            prompt: "Irratability",
+            name: 'bdi_17',
+            options: bdi_options.Irratability,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Changes in Appetite",
+            name: 'bdi_18',
+            options: bdi_options.ChangesinAppetite,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Concentration Difficulty",
+            name: 'bdi_19',
+            options: bdi_options.ConcentrationDifficulty,
+            required: true,
+            horizontal: true
+        }, {
+            prompt: "Tiredness or Fatigue",
+            name: 'bdi_20',
+            options: bdi_options.TirednessorFatigue,
+            required: true,
+            horizontal: true
+        },{
+            prompt: "Loss of Interest in Sex",
+            name: 'bdi_21',
+            options: bdi_options.LossofInterestinSex,
+            required: true,
+            horizontal: true
+        }, ]
+    }
+    timeline.push(bdi);
+
     var bai = {
         type: 'survey-multi-select',
-        preamble: "<br><br>Below is a list of common symptoms of anxiety. Please carefully read each item in the list. Indicate how much you have been bothered by that symptom during the past month, including today, by circling the number in the corresponding space in the column next to each symptom.",
+        preamble: "<br><br>Below is a list of common symptoms of anxiety. Please carefully read each item in the list."
+            + "Indicate how much you have been bothered by that symptom during the past month, including today, by circling"
+            + "the number in the corresponding space in the column next to each symptom.",
         questions: [{
             prompt: "Numbness or tingling",
             name: 'bai_1',
