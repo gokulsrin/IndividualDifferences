@@ -4,7 +4,7 @@ vignettes = {
         "vignette": "Heinzs wife has recently fallen ill and needs an expensive medication that is not covered by her medical insurance. They do not have the money needed to purchase the expensive prescription medication, but they know that it is vital for her to have it if she is going to recover.",
         "prompt": "Is it possible for Heinz to...?",
         "immoral": ["steal the money from his work", "blackmail someone for the money", "commit credit card fraud", "get the medicine by stealing"],
-        "irrational": ["sell his own medication", "sell all his clothes for money", "go on strike until wages increase", "try random other medicines"],
+        "irrational": ["sell his own medication", "sell all his clothes for money", "go on strike until wages increase", "try other medicines at random"],
         "improbable": ["be given the medicine by a doctor", "inherit money from a close relative", "receive the money from a stranger", "discover a cheap new medicine"],
         "possible": ["use a generic medication instead", "buy a different insurance plan", "enroll in federal healthcare", "borrow the money from a bank"],
         "impossible": ["be given the money by a turtle", "make the money time traveling", "grow the money on a tree", "get the money by clapping"]
@@ -15,7 +15,7 @@ vignettes = {
         "prompt": "Is it possible for Josh to...?",
         "immoral": ["steal another person's car", "take a taxi without paying", "take another driver hostage", "sneak onto public transportation"],
         "irrational": ["book a flight for next year", "sell car for ride to airport", "pay 1000 dollars for a ride", "try to run there in time"],
-        "improbable": ["beckon a friend passing by", "convince airport to delay flight", "get a stranger to drive him", "arrange for a private plane"],
+        "improbable": ["beckon a friend passing by", "convince the airport to delay flight", "get a stranger to drive him", "arrange for a private plane"],
         "possible": ["reschedule for a later flight", "ask the gas station clerk for help", "call a friend for a ride", "take public transportation"],
         "impossible": ["get a new car by thinking", "ride a cat to the airport", "teleport himself to the airport", "levitate and fly to the airport"]
     },
@@ -27,7 +27,7 @@ vignettes = {
         "irrational": ["close the store five hours early", "pay with his retirement fund", "try to invent new pastries", "discount food to encourage tipping"],
         "improbable": ["find the money on the ground", "discover the money is in his pocket", "get a child to donate the money", "receive a 100 dollar tip"],
         "possible": ["explain the situation to his boss", "ask other employees what to do", "use money from his own wallet", "borrow money from a friend"],
-        "impossible": ["turn the cash register invisible", "use some monopoly money instead", "take pictures of missing bills", "get the money by sneezing a lot"]
+        "impossible": ["turn the cash register invisible", "use some monopoly money instead", "take pictures of missing bills", "get the money by sneezing"]
     },
     "Mary": {
         "name": "Mary",
@@ -43,18 +43,18 @@ vignettes = {
         "name": "Brad",
         "vignette": "	Brad and some friends are hiking through the mountains in the Canadian wilderness. A couple of days into their hike, Brad realizes that they are lost. He knows that a rescue crew could arrive before long, but it is extremely cold and they don't have much food or water left.",
         "prompt": "Is it possible for Brad to ...?",
-        "immoral": ["secretly take his friends' food", "leave the weakest people behind", "rob other hikers they meet", "kill his friend's pet dog for food"],
+        "immoral": ["secretly take his friends' food", "leave the weakest people behind", "rob other hikers they meet", "kill his friend's dog for food"],
         "irrational": ["go hunting for water buffalo", "eat random berries and leaves", "each venture off independently", "eat all their food immediately"],
-        "improbable": ["find thermal vent to keep warm", "find stream showing the path out", "meet a former expedition guide", "find an abandoned bear cave"],
+        "improbable": ["find thermal vents to keep warm", "find a stream showing the path", "meet a former expedition guide", "find an abandoned bear cave"],
         "possible": ["stay put and wait for help", "get more food by hunting and fishing", "build a large fire to alert rescuers", "create a shelter to stay warm"],
-        "impossible": ["use his mind to keep everyone warm", "make new jackets from pine trees", "alert airplanes overhead by yelling", "grind up rocks for food and water"]
+        "impossible": ["use his mind to keep everyone warm", "make new jackets from pine trees", "alert airplanes overhead by yelling", "grind up rocks for food"]
     },
     "Liz": {
         "name": "Liz",
         "vignette": "Liz decides to go to the gym on her lunch break because she is going to have to work late tonight and won't have time during the evening. When she gets to the gym, she realizes that her membership has expired since she last went.",
         "prompt": "Is it possible for Liz to...?",
         "possible": ["go for a run outside instead", "decide to lift weights at home", "pay for a one-day gym pass", "renew her gym membership"],
-        "irrational": ["decide to never exercise again", "	try again in three minutes", "complain in a foreign language", "run back and forth across lobby"],
+        "irrational": ["decide to never exercise again", "try again in three minutes", "complain in a foreign language", "run back and forth in the lobby"],
         "impossible": ["turn invisible and go in", "wish all gyms to be free forever", "renew her membership by blinking", "turn her hat into a gym pass"],
         "immoral": ["take someone else's gym card", "claim she left her wallet inside", "sneak past the gym attendant", "go in the back door without paying"],
         "improbable": ["learn the gym stopped checking IDs", "receive a free lifetime membership", "find a one-day pass in purse", "discover the gym is free today"]
