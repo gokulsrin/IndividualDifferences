@@ -34,12 +34,15 @@ app.use(bodyParser.json());
 // default index route
 app.post('/data', (req, res) => {
     // console.log(req.body)
-
-        const query = makeQuery(req.body.data)
-        con.query(query, function (err, result) {
-          if (err) console.log(err);
-          else console.log("Data recorded");
-        });
+        // console.log(req.body);
+        const query = makeQuery(req.body)
+        //go through every index, which is itself a query, and send it to the db
+        for(var i = 0; i < query.length; i++){
+          con.query(query[i], function (err, result) {
+            if (err) console.log(err);
+            else console.log("Data recorded");
+          });
+        }
     res.send('Data received!');
 });
 

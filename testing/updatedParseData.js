@@ -35,50 +35,56 @@ function makeQuery(data) {
     var measures_column_names = "(measure, turkID, responses)";
     //construct row messages
     var id = participant_info["turkID"];
-    var messages;
-    for (key in stimulus_dict){
-        var message = createMessage(stimulus_dict[key], id, "stimulus");
+    var messages = "";
+    for (var key in stimulus_dict){
+        var message = createMessage(key, stimulus_dict[key], id, "stimulus");
         messages += message+", ";
     }
-    messages = messages.substring(0, messages.length -1);
-    console.log(messages);
-    var query = "INSERT INTO stimulus_table" + stimulus_column_names + " " + "VALUES" + message + ";";
+    messages = messages.substring(0, messages.length -2);
+    var stimulus_query = "INSERT INTO stimulus_table " + stimulus_column_names + " " + "VALUES " + messages + ";";
+
     //inserting into the table that will contain participants 
-    var participants_message = createMessage(participant_info, id, "participants");
-    var participants_query = "INSERT INTO participant_table " + participants_column_names + " " + "VALUES" + participants_message + ";";
+    var participants_message = createMessage(null, participant_info, id, "participants");
+    var participants_query = "INSERT INTO participant_table " + participants_column_names + " " + "VALUES " + participants_message + ";";
+   
 
     //inserting into the table that will contain crt/bdi/bai 
-    var crt_message = createMessage(crt_info, id, "crt");
-    var crt_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES" + crt_message + ";";
+    var crt_message = createMessage(null, crt_info, id, "crt");
+    var crt_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES " + crt_message + ";";
     
-    var bdi_message = createMessage(bdi_info, id, "bdi");
-    var bdi_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES" + bdi_message + ";";
+    var bdi_message = createMessage(null, bdi_info, id, "bdi");
+    var bdi_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES " + bdi_message + ";";
 
-    var bai_message = createMessage(bai_info, id, "bai");
-    var bai_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES" + bai_message + ";";
+    var bai_message = createMessage(null, bai_info, id, "bai");
+    var bai_query = "INSERT INTO measures_table " + measures_column_names + " " + "VALUES " + bai_message + ";";
+
+    return [stimulus_query, participants_query, crt_query, bdi_query, bai_query];
 }
 /**
  * 
  * @param {*} arr is the array/map that stores the relavent data
  * @param {*} id is the participant turkID
  * @param {*} type is the type of query we want to make (i.e. stimulus, participants, crt)
+ * @param {*} stimulus is the stimulus in the case of the type being stimulus
  * @returns the message that will suceed "VALUES" in the sql insert paradigm
  */
-function createMessage(arr, id, type){
+function createMessage(stimulus,arr, id, type){
     if (type == "stimulus"){
         arr.push(id);
-        var message = "("
-        for (item of arr){
-            message+= (item+", ")
+        var message = "('"
+        message+= (stimulus+"', ")
+        for (var item of arr){
+            message+= ("'"+item+"', ")
         }
         //trim end of message to correct
         message = message.substring(0, message.length-2);
         message += ")";
+        // console.log(message);
         return message;
     }
     else if (type == "participants"){
         var message = "("
-        for (item in arr){
+        for (var item in arr){
             message+= (arr[item]+", ")
         }
         //trim end of message to correct
@@ -89,30 +95,33 @@ function createMessage(arr, id, type){
     //for the following measures, instead of splitting each question in the survey by ",", I split by "|"
     else if (type == "crt"){
         var message = "("
-        message += ("crt, " + id +", ");
-        for (item of arr){
+        message += ("'crt', '" + id +"', '");
+        for (var item of arr){
             message += item+"|";
         }
+        message+="' ";
         //trim end of message
         message = message.substring(0, message.length -1) + ")";
         return message;  
     }
     else if (type == "bdi"){
         var message = "("
-        message += ("bdi, " + id +", ");
-        for (item of arr){
+        message += ("'bdi', '" + id +"', '");
+        for (var item of arr){
             message += item+"|";
         }
+        message+="' ";
         //trim end of message
         message = message.substring(0, message.length -1) + ")";
         return message; 
     }
     else if (type == "bai"){
         var message = "("
-        message += ("bai, " + id +", ");
+        message += ("'bai', '" + id +"', '");
         for (item of arr){
             message += item+"|";
         }
+        message+="' ";
         //trim end of message
         message = message.substring(0, message.length -1) + ")";
         return message; 
@@ -169,8 +178,8 @@ function parseMetrics(data, crt, bai, bdi){
             var responses = unit.responses.split(",");
             for (var i = 0; i < responses.length; i++){
                 var response = responses[i].split(":");
-                //processing out the characters and such 
-                response = response[1].replace(/[.,\/#"!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
+                //processing out the characters and such, which is very important later on (just add the character you want to remove)
+                response = response[1].replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ");
                 crt.push(response.substring(1,response.length -1));
             }
         }
@@ -179,7 +188,7 @@ function parseMetrics(data, crt, bai, bdi){
             for (var i = 0; i < responses.length; i++){
                 var response = responses[i].split(":");
                 //processing out the characters and such 
-                response = response[1].replace(/[.,\/#!"$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
+                response = response[1].replace(/[.,\/#!"$%\^&\*;:{}='’\-_`~()]/g,"").replace(/\s{2,}/g," ");
                 bai.push(response.substring(1,response.length -1));
             }
         }
@@ -187,11 +196,11 @@ function parseMetrics(data, crt, bai, bdi){
             var responses = unit.responses.split(",");
             for (var i = 0; i < responses.length; i++){
                 var response = responses[i].split(":");
-                //processing out the characters and such 
-                response = response[1].replace(/[.,\/#!"$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s{2,}/g," ");
+                //processing out the characters and such
+                response = response[1].replace(/[.,\/#!"$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ");
                 bdi.push(response.substring(1,response.length -1));
             }
         }
     });
 }
-// export default makeQuery;
+export default makeQuery;

@@ -15,14 +15,15 @@
     <script src="jspsych-6.1.0/plugins/jspsych-survey-text.js"></script>
     <script type="text/javascript" src="vignettes.js"></script>
     <script type="text/javascript" src="bdi_options.js"></script>
-    <script type="text/javascript" src="testing/newtestdata.js"></script>
-    <script type="text/javascript" src="testing/updatedParseData.js"></script>
+    <script type="text/javascript" src="./testing/newtestdata.js"></script>
+    <script type="module" src="./testing/updatedParseData.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />        
     <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css"></link>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body></body>
+
 <script>
     /* create timeline */
     var timeline = [];
@@ -46,11 +47,7 @@
     //create dictionary that will be used to effectivley determine the modal type
     var dict = new Map()
 
-    data = testdata;
-    makeQuery(data);
-
     
-
     /**
      * @ Param: no parameters. This method simply bulds up a dictionary mapping person, to modal type, to stimulus within each modal type
      * This is useful for when we care about the modal type of our stimulus
@@ -611,13 +608,6 @@
             required: true,
             horizontal: true
         },
-        //    {
-        //    prompt: "Suicidal Thoughts or Wishes",
-        //    name: 'bdi_9',
-        //    options: bdi_options.SuicidalThoughtsorWishes,
-        //    required: true,
-        //    horizontal: true
-        //},
             {
             prompt: "Crying",
             name: 'bdi_10',
