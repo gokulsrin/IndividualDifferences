@@ -34,7 +34,8 @@ function makeQuery(data) {
     parseData(data);
     // Query format for stimulus table: "INSERT INTO stimulus_table" + "(column1, column2, column3,...,column)" + " " + "VALUES " + "valuesStr" + ";")
     var stimulus_column_names = "(stimulus, answer, event_type, reaction_time, vignette_name, turkID)";
-    var participants_column_names = "(age, country, education, gender, handedness, language, nationality, turkID)";
+    //ordering of participant column names 
+    var participants_column_names = "(age, handedness, language, nationality, country, gender, education, turkID)";
     var measures_column_names = "(measure, turkID, responses)";
     //construct row messages
     var id = participant_info["turkID"].replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ");
