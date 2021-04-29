@@ -5,7 +5,7 @@ bdi_options = {
         "2 -- I do not expect things to work out for me.", "3 -- I feel my future is hopeless and will only get worse."],
 
     "PastFailure": ["0 -- I do not feel like a failure.", "1 -- I feel more discouraged about my future than I used to",
-        "2 -- As I look back, I see a lot of failures.", "3 -- I feel I am a total failure as a person"],
+        "2 -- As I look back I see a lot of failures.", "3 -- I feel I am a total failure as a person"],
 
     "LossofPleasure": ["0 -- I get as much pleasure as I ever did from the things I enjoy.", "1 -- I don't enjoy things as much as I used to.",
         "2 -- I get very little pleasure from the things I used to enjoy.", "3 -- I can't get any pleasure from the things I used to enjoy."],
@@ -27,7 +27,7 @@ bdi_options = {
     //    "2 -- I would like to kill myself.", "3 -- I would kill myself if I had the chance. "],
 
     "Crying": ["0 -- I don't cry anymore than I used to.", "1 -- I cry more than I used to.",
-        "2 -- I cry over every little thing.", "3 -- I feel like crying, but I can't."],
+        "2 -- I cry over every little thing.", "3 -- I feel like crying but I can't."],
 
     "Agitation": ["0 -- I am no more restless or wound up than usual.", "1 -- I feel more restless or wound up than usual.",
         "2 -- I am so restless or agitated that it's hard to stay still.", "3 -- I am so restless or agitated that I have to keep moving or doing something."],

@@ -2,6 +2,9 @@
 
 // I want to store the mapping of a particular stimulus to the modal type, response time, and vignette name
 
+//it should be made clear: replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ") 
+// this function will simply remove any common non-alphanumeric characters from a string; this is important because json parsing is some ass. 
+
 /**
  * These will be all of the global variables needed here
  */
@@ -34,7 +37,7 @@ function makeQuery(data) {
     var participants_column_names = "(age, country, education, gender, handedness, language, nationality, turkID)";
     var measures_column_names = "(measure, turkID, responses)";
     //construct row messages
-    var id = participant_info["turkID"];
+    var id = participant_info["turkID"].replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ");
     var messages = "";
     for (var key in stimulus_dict){
         var message = createMessage(key, stimulus_dict[key], id, "stimulus");
@@ -72,20 +75,19 @@ function createMessage(stimulus,arr, id, type){
     if (type == "stimulus"){
         arr.push(id);
         var message = "('"
-        message+= (stimulus+"', ")
+        message+= (stimulus.replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ")+"', ")
         for (var item of arr){
             message+= ("'"+item+"', ")
         }
         //trim end of message to correct
         message = message.substring(0, message.length-2);
         message += ")";
-        // console.log(message);
         return message;
     }
     else if (type == "participants"){
         var message = "("
         for (var item in arr){
-            message+= (arr[item]+", ")
+            message+= ("'"+arr[item].replace(/[.,\/#"!$%\^&\*;:{}='\-_`~()]/g,"").replace(/\s{2,}/g," ")+"', ")
         }
         //trim end of message to correct
         message = message.substring(0, message.length-2);
@@ -136,13 +138,14 @@ function parseParticipantInfo(data, dict){
     data.forEach( (unit) => {
         var ordering = ["age", "handedness", "language", "nationality", "country", "gender", "education", "turkID"];
         if(unit.internal_type == "participant_info"){
-            // console.log(unit.responses);
             var responses = unit.responses.split(",");
             for(var i = 0; i < responses.length; i++){
                 //this will give us the "Q0":"11" as two indicies
-                var response = responses[i].split(":");
+                var response = responses[i].split(":");            
                 //general way to parse number from string
-                var number = response[1].match(/\d+/)[0];
+                //for whatever reason, response[1].match(/\d+/) == null
+                var number = response[1];
+             
                 dict[ordering[i]] = number;
             }
             return null;
@@ -158,8 +161,6 @@ function parseParticipantInfo(data, dict){
 function buildStimulusDict(data, dict){
     data.forEach( (unit) => {
         if(unit.internal_type == "stimulus"){
-            // console.log(unit);
-            // console.log(unit.stimulus);
             //stimulus --> modal_type, speed, response time, vignette name
             dict[unit.stimulus] = [unit.modal_type, unit.speed, unit.rt, unit.vignette];
         }

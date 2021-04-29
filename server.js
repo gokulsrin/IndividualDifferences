@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 // default index route
 app.post('/data', (req, res) => {
     // console.log(req.body)
-        // console.log(req.body);
+        // console.log(req.body); 
         const query = makeQuery(req.body)
         //go through every index, which is itself a query, and send it to the db
         for(var i = 0; i < query.length; i++){
