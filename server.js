@@ -24,6 +24,7 @@ var con = mysql.createConnection({
   
   const app = express();
 
+// app.use('/', express.static(__dirname + '/public'));
 app.use(express.static('public'));
 
 // enable json message body for posting data to API
